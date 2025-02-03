@@ -4,17 +4,17 @@ import axios from 'axios';
 @Injectable()
 export class NumberService {
   async getNumberDetails(number: number) {
-    const isPrime = this.checkPrime(number);
-    const isPerfect = this.checkPerfect(number);
-    const isArmstrong = this.checkArmstrong(number);
+    const isPrime = this.checkIfPrime(number);
     const digitSum = this.getDigitSum(number);
     const parity = number % 2 === 0 ? 'even' : 'odd';
+    const isPerfect = this.checkIfPerfect(number);
+    const isArmstrong = this.checkTheArmstrong(number);
 
     const properties = [];
     if (isArmstrong) properties.push('armstrong');
     properties.push(parity);
 
-    const funFact = await this.getFunFact(number);
+    const funFact = await this.getTheFunFact(number);
 
     return {
       number,
@@ -25,7 +25,7 @@ export class NumberService {
       fun_fact: funFact,
     };
   }
-  private checkPrime(num: number): boolean {
+  private checkIfPrime(num: number): boolean {
     if (num < 2) return false;
     for (let i = 2; i <= Math.sqrt(num); i++) {
       if (num % i === 0) return false;
@@ -33,7 +33,7 @@ export class NumberService {
     return true;
   }
 
-  private checkPerfect(num: number): boolean {
+  private checkIfPerfect(num: number): boolean {
     let sum = 0;
     for (let i = 1; i < num; i++) {
       if (num % i === 0) sum += i;
@@ -41,7 +41,7 @@ export class NumberService {
     return sum === num;
   }
 
-  private checkArmstrong(num: number): boolean {
+  private checkTheArmstrong(num: number): boolean {
     const digits = num.toString().split('').map(Number);
     const power = digits.length;
     const sum = digits.reduce((acc, digit) => acc + Math.pow(digit, power), 0);
@@ -56,7 +56,7 @@ export class NumberService {
       .reduce((a, b) => a + b, 0);
   }
 
-  private async getFunFact(num: number): Promise<string> {
+  private async getTheFunFact(num: number): Promise<string> {
     try {
       const response = await axios.get(`http://numbersapi.com/${num}/math`);
       return response.data;
