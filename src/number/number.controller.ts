@@ -13,6 +13,6 @@ export class NumberController {
         error: true,
       });
     }
-    return await this.numberService.classifyNumber(number);
+    return await this.numberService.getNumberDetails(number);
   }
 }
