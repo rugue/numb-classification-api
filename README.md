@@ -1,6 +1,6 @@
 # Number Classification API
 
-This is a NestJS-based API that classifies numbers with mathematical properties and fetches a fun fact from NumbersAPI.
+This is Stage-1 task of HNG12 for backend NestJS-based API that classifies numbers with mathematical properties and fetches a fun fact from NumbersAPI.
 
 ## Features
 
@@ -15,7 +15,7 @@ This is a NestJS-based API that classifies numbers with mathematical properties 
 
 ### Example Request
 
-https://your-api-name.onrender.com/api/classify-number?number=371
+https://numb-classification-api-gy66.vercel.app/api/classify-number?number=371
 
 ### Example Response (200 OK)
 
@@ -47,4 +47,4 @@ npm run start:dev
 ### Deployment
 
 This API is deployed at:
-https://your-api-name.onrender.com/api/classify-number?number=371
+https://numb-classification-api-gy66.vercel.app/api/classify-number?number=371

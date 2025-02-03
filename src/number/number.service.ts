@@ -61,7 +61,7 @@ export class NumberService {
       const response = await axios.get(`http://numbersapi.com/${num}/math`);
       return response.data;
     } catch {
-      return 'Fun fact unavailable at the moment';
+      return 'Fun fact at this moment';
     }
   }
 }
