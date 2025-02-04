@@ -29,7 +29,7 @@ export class NumberService {
     const digitSum = this.getDigitSum(number);
     const parity = number % 2 === 0 ? 'even' : 'odd';
     const isPerfect = this.checkIfPerfect(number);
-    const isArmstrong = this.checkTheArmstrong(number);
+    const isArmstrong = number >= 0 && this.checkTheArmstrong(number);
 
     const properties = [];
     if (isArmstrong) properties.push('armstrong');
@@ -64,19 +64,21 @@ export class NumberService {
   }
 
   private checkTheArmstrong(num: number): boolean {
-    const absNum = Math.abs(num);
-    const digits = absNum.toString().split('').map(Number);
+    const digits = num.toString().split('').map(Number);
     const power = digits.length;
     const sum = digits.reduce((acc, digit) => acc + Math.pow(digit, power), 0);
-    return sum === absNum;
+    return sum === num;
   }
 
   private getDigitSum(num: number): number {
-    return Math.abs(num)
-      .toString()
-      .split('')
-      .map(Number)
-      .reduce((a, b) => a + b, 0);
+    return (
+      num
+        .toString()
+        .split('')
+        .filter((char) => char !== '-')
+        .map(Number)
+        .reduce((a, b) => a + b, 0) * (num < 0 ? -1 : 1)
+    ); // Maintain negative sign
   }
 
   private async getTheFunFact(num: number): Promise<string> {
