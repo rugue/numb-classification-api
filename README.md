@@ -45,8 +45,6 @@ npm install
 npm run start:dev
 
 ### Deployment
-let me help you
-
 
 This API is deployed at:
 https://numb-classification-api-gy66.vercel.app/api/classify-number?number=371

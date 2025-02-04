@@ -1,9 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 @Injectable()
 export class NumberService {
-  async getNumberDetails(number: number) {
+  async getNumberDetails(numberString?: string) {
+    if (!numberString) {
+      throw new BadRequestException({
+        detail: [
+          {
+            type: 'missing',
+            loc: ['query', 'number'],
+            msg: 'Field required',
+            input: null,
+          },
+        ],
+      });
+    }
+
+    const number = parseInt(numberString, 10);
+    if (isNaN(number)) {
+      throw new BadRequestException({
+        number: numberString,
+        error: true,
+      });
+    }
+
     const isPrime = this.checkIfPrime(number);
     const digitSum = this.getDigitSum(number);
     const parity = number % 2 === 0 ? 'even' : 'odd';
@@ -25,6 +46,7 @@ export class NumberService {
       fun_fact: funFact,
     };
   }
+
   private checkIfPrime(num: number): boolean {
     if (num < 2) return false;
     for (let i = 2; i <= Math.sqrt(num); i++) {
