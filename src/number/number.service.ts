@@ -42,14 +42,15 @@ export class NumberService {
   }
 
   private checkTheArmstrong(num: number): boolean {
-    const digits = num.toString().split('').map(Number);
+    const absNum = Math.abs(num);
+    const digits = absNum.toString().split('').map(Number);
     const power = digits.length;
     const sum = digits.reduce((acc, digit) => acc + Math.pow(digit, power), 0);
-    return sum === num;
+    return sum === absNum;
   }
 
   private getDigitSum(num: number): number {
-    return num
+    return Math.abs(num)
       .toString()
       .split('')
       .map(Number)
