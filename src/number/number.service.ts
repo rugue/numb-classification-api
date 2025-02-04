@@ -17,19 +17,20 @@ export class NumberService {
       });
     }
 
-    const number = parseInt(numberString, 10);
-    if (isNaN(number)) {
+    if (!/^-?\d+$/.test(numberString)) {
       throw new BadRequestException({
         number: numberString,
         error: true,
       });
     }
 
+    const number = parseInt(numberString, 10);
+
     const isPrime = this.checkIfPrime(number);
     const digitSum = this.getDigitSum(number);
     const parity = number % 2 === 0 ? 'even' : 'odd';
     const isPerfect = this.checkIfPerfect(number);
-    const isArmstrong = number >= 0 && this.checkTheArmstrong(number);
+    const isArmstrong = number >= 0 && this.checkTheArmstrong(number); // Armstrong check only for non-negative
 
     const properties = [];
     if (isArmstrong) properties.push('armstrong');
@@ -78,7 +79,7 @@ export class NumberService {
         .filter((char) => char !== '-')
         .map(Number)
         .reduce((a, b) => a + b, 0) * (num < 0 ? -1 : 1)
-    ); // Maintain negative sign
+    );
   }
 
   private async getTheFunFact(num: number): Promise<string> {
